@@ -1,5 +1,7 @@
 Installation:
-composer install
+
+`composer install`
 
 Running:
-./vendor/bin/codecept run tests/RoverControllerTest.php
+
+`./vendor/bin/codecept run tests/RoverControllerTest.php`
