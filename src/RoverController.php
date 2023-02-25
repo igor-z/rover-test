@@ -1,27 +1,30 @@
 <?php
-namespace roverTest;
 
-use roverTest\parser\CommandFactory;
-use roverTest\parser\RoverCommandsParser;
-use roverTest\parser\StateFactory;
+declare(strict_types=1);
+
+namespace RoverTest;
+
+use RoverTest\Parser\CommandFactory;
+use RoverTest\Parser\PositionFactory;
+use RoverTest\Parser\RoverCommandsParser;
 
 class RoverController
 {
-	public function handleInput(string $input) : string
-	{
-		$parser = new RoverCommandsParser($input, new StateFactory(), new CommandFactory());
+    public function handleInput(string $input): string
+    {
+        $parser = new RoverCommandsParser($input, new PositionFactory(), new CommandFactory());
 
-		$outputLines = [];
-		foreach ($parser->parse() as $statement) {
-			$rover = $statement->getRover();
-			foreach ($statement->getCommands() as $command) {
-				$command->execute($rover);
-			}
+        $outputLines = [];
+        foreach ($parser->parse() as $statement) {
+            $rover = $statement->getRover();
+            foreach ($statement->getCommands() as $command) {
+                $command->execute($rover);
+            }
 
-			$stateReport = new StateReport($rover->getState());
-			$outputLines[] = $stateReport->report();
-		}
+            $positionPrinter = new PositionPrinter($rover->getPosition());
+            $outputLines[] = $positionPrinter->print();
+        }
 
-		return implode("\n", $outputLines);
-	}
+        return implode("\n", $outputLines);
+    }
 }

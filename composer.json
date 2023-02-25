@@ -1,15 +1,14 @@
 {
-    "authors": [
-        {
-            "name": "Igor Zahvatov",
-            "email": "iz@nowmedia.ru"
-        }
-    ],
-    "require": {},
     "require-dev": {
-        "codeception/codeception": "^2.5"
+        "codeception/codeception": "^5.0.9"
     },
     "autoload": {
-        "psr-4": {"roverTest\\" : "src/"}
+        "psr-4": {
+            "RoverTest\\": "src/",
+            "Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": "^8.1"
     }
 }

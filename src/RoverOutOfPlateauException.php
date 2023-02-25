@@ -1,10 +1,11 @@
 <?php
 
-namespace roverTest;
+declare(strict_types=1);
 
-use Exception;
+namespace RoverTest;
 
-class RoverOutOfPlateauException extends Exception
+use RuntimeException;
+
+class RoverOutOfPlateauException extends RuntimeException
 {
-
 }

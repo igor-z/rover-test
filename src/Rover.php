@@ -1,41 +1,39 @@
 <?php
-namespace roverTest;
+
+declare(strict_types=1);
+
+namespace RoverTest;
 
 class Rover
 {
-	private $plateau;
-	private $state;
+    public function __construct(private Position $position, private readonly Plateau $plateau)
+    {
+    }
 
-	public function __construct(StateInterface $state, Plateau $plateau)
-	{
-		$this->state = $state;
-		$this->plateau = $plateau;
-	}
+    public function move(): void
+    {
+        $this->setPosition($this->position->move());
+    }
 
-	public function move()
-	{
-		$this->state->move($this);
-	}
+    public function rotateLeft(): void
+    {
+        $this->setPosition($this->position->rotateLeft());
+    }
 
-	public function rotateLeft()
-	{
-		$this->state->rotateLeft($this);
-	}
+    public function rotateRight(): void
+    {
+        $this->setPosition($this->position->rotateRight());
+    }
 
-	public function rotateRight()
-	{
-		$this->state->rotateRight($this);
-	}
+    public function getPosition(): Position
+    {
+        return $this->position;
+    }
 
-	public function setState(StateInterface $state)
-	{
-		$this->state = $state;
+    private function setPosition(Position $position): void
+    {
+        $this->position = $position;
 
-		$this->plateau->roverChanged($this);
-	}
-
-	public function getState()
-	{
-		return $this->state;
-	}
+        $this->plateau->checkBounds($this->position);
+    }
 }

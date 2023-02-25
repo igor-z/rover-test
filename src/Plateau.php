@@ -1,28 +1,24 @@
 <?php
-namespace roverTest;
+
+declare(strict_types=1);
+
+namespace RoverTest;
 
 class Plateau
 {
-	private $maxX;
-	private $maxY;
+    public function __construct(private readonly int $sizeX, private readonly int $sizeY)
+    {
+    }
 
-	public function __construct(int $maxX, int $maxY)
-	{
-		$this->maxX = $maxX;
-		$this->maxY = $maxY;
-	}
-
-	public function roverChanged(Rover $rover)
-	{
-		$state = $rover->getState();
-
-		if (
-			$state->getX() > $this->maxX
-			|| $state->getY() > $this->maxY
-			|| $state->getX() < 0
-			|| $state->getY() < 0
-		) {
-			throw new RoverOutOfPlateauException("Rover with coordinates ({$state->getX()}, {$state->getY()}) out of plateau");
-		}
-	}
+    public function checkBounds(Position $position): void
+    {
+        if (
+            $position->getX() > $this->sizeX
+            || $position->getY() > $this->sizeY
+            || $position->getX() < 0
+            || $position->getY() < 0
+        ) {
+            throw new RoverOutOfPlateauException("Rover with coordinates ({$position->getX()}, {$position->getY()}) out of plateau");
+        }
+    }
 }

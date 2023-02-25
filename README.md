@@ -2,6 +2,6 @@ Installation:
 
 `composer install`
 
-Running:
+Tests:
 
 `./vendor/bin/codecept run tests/RoverControllerTest.php`
